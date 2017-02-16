@@ -1,24 +1,36 @@
 <div fxLayout="row">
-  <div fxFlex="40" fxFlexOffset="10">
-    <md-card style="min-height: 350px">
-      <md-card-header>
-        <md-card-title>Choose stock</md-card-title>
-      </md-card-header>
+  <div fxFlex="60" fxFlexOffset="10">
+    <md-card style="min-height: 400px">
       <md-card-content>
         <div fxLayout="row">
-          <div fxFlex>
-            <md-select placeholder="Select stock" [(ngModel)]="selectedStock">
+            <md-select fxFlex="25" placeholder="Select stock" [(ngModel)]="selectedStock">
               <md-option *ngFor="let stock of stockList" [value]="stock.symbol">
                 {{stock.companyName}} - {{stock.symbol}}
               </md-option>
             </md-select>
             <button md-raised-button [disabled]="!selectedStock" (click)="AddToList(selectedStock)">Add</button>
-          </div>
         </div>
         <br>
-        <div *ngFor="let stock of stockListView" fxLayout="row">
-          <button (click)="buyStock(stock.symbol)" md-button>Buy</button>
-          <p>{{stock.companyName}} {{stock.symbol}} {{stock.value | number: '1.2-2'}}</p>
+        
+        <div fxLayout="row">
+          <table id="table" class="table table-hover table-mc-light-blue">
+            <thead>
+              <tr>
+                <th class="thead">Action</th>
+                <th class="thead">Company Name</th>
+                <th class="thead">symbol</th>
+                <th class="thead">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let stock of stockListView">
+                <td data-title="Action"> <a (click)="buyStock(stock.symbol)" md-button>Buy</a></td>
+                <td data-title="Company Name">{{stock.companyName}}</td>
+                <td data-title="symbol">{{stock.symbol}}</td>
+                <td data-title="Price">{{stock.value | number: '1.2-2'}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </md-card-content>
       <div class="actions">
