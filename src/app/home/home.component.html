@@ -1,0 +1,29 @@
+<div fxLayout="row">
+  <div fxFlex="40" fxFlexOffset="10">
+    <md-card style="min-height: 350px">
+      <md-card-header>
+        <md-card-title>Choose stock</md-card-title>
+      </md-card-header>
+      <md-card-content>
+        <div fxLayout="row">
+          <div fxFlex>
+            <md-select placeholder="Select stock" [(ngModel)]="selectedStock">
+              <md-option *ngFor="let stock of stockList" [value]="stock.symbol">
+                {{stock.companyName}} - {{stock.symbol}}
+              </md-option>
+            </md-select>
+            <button md-raised-button [disabled]="!selectedStock" (click)="AddToList(selectedStock)">Add</button>
+          </div>
+        </div>
+        <br>
+        <div *ngFor="let stock of stockListView" fxLayout="row">
+          <button (click)="buyStock(stock.symbol)" md-button>Buy</button>
+          <p>{{stock.companyName}} {{stock.symbol}} {{stock.value | number: '1.2-2'}}</p>
+        </div>
+      </md-card-content>
+      <div class="actions">
+        <button [disabled]="stockListView.length === 0" (click)="refresh()" md-raised-button>Refresh</button>
+      </div>
+    </md-card>
+  </div>
+</div>
